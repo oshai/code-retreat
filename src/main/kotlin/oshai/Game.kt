@@ -29,7 +29,7 @@ class Game(world: Array<Array<CellState>>) {
         println("GAME OVER!")
     }
 
-    private val DELAY = 350L
+    private val DELAY = 500L
     private val world = World(world)
 
     private fun Array<Array<CellState>>.draw(round: Int) {
@@ -41,11 +41,6 @@ class Game(world: Array<Array<CellState>>) {
         Thread.sleep(DELAY)
     }
 
-}
-
-enum class CellState(val String: String) {
-    Dead("-"),
-    Alive("X")
 }
 
 inline fun <reified INNER> cubeArray2d(size: Int, noinline innerInit: (Int, Int) -> INNER): Array<Array<INNER>>
