@@ -1,15 +1,13 @@
 package oshai
 
-import java.util.*
-
-class World(initialWorld: Array<Array<CellState>>) {
-    private var worldState: Array<Array<CellState>> = initialWorld
+class World(initialWorld: List<List<CellState>>) {
+    private var worldState: List<List<CellState>> = initialWorld
     private val X_SIZE = initialWorld.size
     private val Y_SIZE = initialWorld.size
 
     fun tick(): Boolean {
-        val newWorldState = cubeArray2d(worldState.size) { x, y -> calcNewCell(x, y) }
-        val isNoChangeNextDay = Arrays.deepEquals(worldState, newWorldState)
+        val newWorldState = cubeList(worldState.size) { x, y -> calcNewCell(x, y) }
+        val isNoChangeNextDay = worldState == newWorldState
         worldState = newWorldState
         return isNoChangeNextDay
     }
@@ -38,5 +36,6 @@ class World(initialWorld: Array<Array<CellState>>) {
         return live
     }
 
-    fun get(): Array<Array<CellState>> = worldState.clone()
+    fun get(): List<List<CellState>> = worldState
 }
+

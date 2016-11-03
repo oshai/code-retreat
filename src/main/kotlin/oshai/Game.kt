@@ -4,15 +4,15 @@ import com.google.common.base.Joiner
 import java.util.*
 
 fun main(args: Array<String>) {
-    Game.random(15).play()
+    Game.random(2).play()
 }
 
-class Game(world: Array<Array<CellState>>) {
+class Game(world: List<List<CellState>>) {
 
     companion object {
         fun random(size: Int): Game {
             val random = Random()
-            return Game(cubeArray2d(size) { x, y -> CellState.values()[random.nextInt(2)] })
+            return Game(cubeList(size) { x, y -> CellState.values()[random.nextInt(2)] })
         }
     }
 
@@ -31,7 +31,7 @@ class Game(world: Array<Array<CellState>>) {
     private val DELAY = 500L
     private val world = World(world)
 
-    private fun Array<Array<CellState>>.draw(round: Int) {
+    private fun List<List<CellState>>.draw(round: Int) {
         this.forEach { lineArr -> println(Joiner.on(" ").join(lineArr.map { it.String })) }
         println("************* $round ************")
     }
@@ -42,5 +42,5 @@ class Game(world: Array<Array<CellState>>) {
 
 }
 
-inline fun <reified INNER> cubeArray2d(size: Int, noinline innerInit: (Int, Int) -> INNER): Array<Array<INNER>>
-        = Array(size) { outerCoord -> Array<INNER>(size) { innerCoord -> innerInit(outerCoord, innerCoord) } }
+fun cubeList(size: Int, init: (Int, Int) -> CellState): List<List<CellState>> =
+        (0..size-1).map {x -> (0..size-1).map{y -> init(x, y)}}
