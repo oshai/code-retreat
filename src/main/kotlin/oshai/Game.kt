@@ -12,8 +12,7 @@ class Game(world: Array<Array<CellState>>) {
     companion object {
         fun random(size: Int): Game {
             val random = Random()
-            val array = cubeArray2d(size) { x, y -> CellState.values()[random.nextInt(2)] }
-            return Game(array)
+            return Game(cubeArray2d(size) { x, y -> CellState.values()[random.nextInt(2)] })
         }
     }
 
