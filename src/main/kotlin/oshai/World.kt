@@ -7,9 +7,9 @@ class World(initialWorld: List<List<CellState>>) {
 
     fun tick(): Boolean {
         val newWorldState = cubeList(worldState.size) { x, y -> calcNewCell(x, y) }
-        val isNoChangeNextDay = worldState == newWorldState
+        val isChangeNextDay = worldState != newWorldState
         worldState = newWorldState
-        return isNoChangeNextDay
+        return isChangeNextDay
     }
 
     private fun calcNewCell(x: Int, y: Int): CellState {

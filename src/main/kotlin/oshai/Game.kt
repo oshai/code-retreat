@@ -18,10 +18,10 @@ class Game(world: List<List<CellState>>) {
 
     fun play() {
         var round = 0
-        var isNoChangeNextDay = false
-        while (!isNoChangeNextDay) {
+        var isChangeNextDay = true
+        while (isChangeNextDay) {
             world.get().draw(round)
-            isNoChangeNextDay = world.tick()
+            isChangeNextDay = world.tick()
             round++
             delay()
         }
