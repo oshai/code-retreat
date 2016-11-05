@@ -16,13 +16,11 @@ class World(initialWorld: List<List<CellState>>) {
     }
 
     private fun calcNewCell(x: Int, y: Int): CellState {
-        val state: CellState = worldState[x][y]
+        val cellState: CellState = worldState[x][y]
         val liveNeighbours: Int = calcLiveNeighbours(x, y)
         return when {
-            state == Alive && liveNeighbours in 0..1    -> Dead
-            state == Alive && liveNeighbours in 2..3    -> Alive
-            state == Alive && liveNeighbours in 4..8    -> Dead
-            state == Dead && liveNeighbours == 3        -> Alive
+            cellState == Alive && liveNeighbours in 2..3 -> Alive
+            cellState == Dead && liveNeighbours == 3 -> Alive
             else -> Dead
         }
     }
