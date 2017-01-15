@@ -2,5 +2,5 @@ package oshai
 
 enum class CellState(val String: String) {
     Dead("-"),
-    Alive("X")
+    Alive("\u2588")
 }

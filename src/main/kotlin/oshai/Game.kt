@@ -4,7 +4,7 @@ import com.google.common.base.Joiner
 import java.util.*
 
 fun main(args: Array<String>) {
-    Game.random(30).play()
+    Game.random(15).play()
 }
 
 class Game(world: List<List<CellState>>) {
