@@ -1,17 +1,25 @@
 package stringcalc
 
-import java.util.regex.Pattern
-
-class StringCalculator {
+class StringCalculator(val logger: ILogger, val webService: IWebService) {
     fun add(lines: String): Int {
+        try {
+            val sum = addInternal(lines)
+            logger.lines = "sum is $sum"
+            return sum
+        } catch(e: Exception) {
+            webService.send("add method failed: ${e.javaClass.simpleName} ${e.message} with input: '$lines'")
+            throw e
+        }
+    }
+
+    private fun addInternal(lines: String): Int {
         if (lines.isBlank()) {
             return 0
         }
         var (delimiters, linesToCalc) = splitDelimitersAndCalculated(lines)
         val numbers = parseNumbers(linesToCalc, delimiters)
         validateNumbers(numbers)
-        return numbers
-                .sum()
+        return numbers.sum()
     }
 
     private fun validateNumbers(numbers: List<Int>) {
@@ -47,4 +55,12 @@ class StringCalculator {
         linesToCalc = lines.substringAfter("\n")
         return Pair(delimiters, linesToCalc)
     }
+}
+
+interface IWebService {
+ fun send(message: String)
+}
+
+interface ILogger {
+    abstract var lines: String
 }
